@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css.css">
+    <title>Jukebox</title>
+</head>
+
+<body>
+    <script async src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script async src="js.js"></script>
+
+    <div class="container">
+        <nav id="playerControls">
+            <audio id="playerAudio">
+                <source src="music/amy.mp3" type="audio/mpeg">
+            </audio>
+            <h4 class="currentSong"></h4>
+            <h5 class="musicStatus"></h5>
+            <button data-function="play">Play</button>
+            <button data-function="pause">Pause</button>
+            <button data-function="restart">Restart</button><br />
+            <button data-function="previous"><< Previous</button>
+            <button data-function="shuffle">Shuffle</button>
+            <button data-function="next">Next >></button>
+        </nav>
+
+        <aside>
+            <ol id="musicTitles"></ol>
+        </aside>
+    </div>
+</body>
+
+</html>
