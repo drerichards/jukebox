@@ -2,11 +2,11 @@
 
 const renderPlaylistDisplay = () => { //shows the UI
     const playlistSource = [
-        ['Amy Winehouse - Love Is A Losing Game', 'music/cartoon.mp3'],
-        ['Coldplay - Parachutes', 'music/fire.mp3'],
-        ['Drake - Bria\'s Interlude', 'music/formula.mp3'],
-        ['Rick Ross - Maybach Music IV', 'music/slot.mp3'],
-        ['Sleep Thieves - Out Of The Darkness', 'music/marbles.mp3']
+        ['Amy Winehouse - Love Is A Losing Game', 'music/amy.mp3'],
+        ['Coldplay - Parachutes', 'music/coldplay.mp3'],
+        ['Drake - Bria\'s Interlude', 'music/drake.mp3'],
+        ['Rick Ross - Maybach Music IV', 'music/rick.mp3'],
+        ['Sleep Thieves - Out Of The Darkness', 'music/sleep.mp3']
     ]
     let musicList = document.getElementById('musicTitles')
     let playerControls = document.getElementById('playerControls')
