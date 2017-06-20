@@ -2,35 +2,36 @@
 
 const renderPlaylistDisplay = () => { //shows the UI
     const playlistSource = [
-        ['Amy Winehouse - Love Is A Losing Game', 'music/amy.mp3'],
-        ['Coldplay - Parachutes', 'music/coldplay.mp3'],
-        ['Drake - Bria\'s Interlude', 'music/drake.mp3'],
-        ['Rick Ross - Maybach Music IV', 'music/rick.mp3'],
-        ['Sleep Thieves - Out Of The Darkness', 'music/sleep.mp3']
+        ['Amy Winehouse - Love Is A Losing Game', 'music/cartoon.mp3'],
+        ['Coldplay - Parachutes', 'music/fire.mp3'],
+        ['Drake - Bria\'s Interlude', 'music/formula.mp3'],
+        ['Rick Ross - Maybach Music IV', 'music/slot.mp3'],
+        ['Sleep Thieves - Out Of The Darkness', 'music/marbles.mp3']
     ]
     let musicList = document.getElementById('musicTitles')
     let playerControls = document.getElementById('playerControls')
     let playerAudio = document.getElementById('playerAudio')
     let currentSong = document.getElementsByClassName('currentSong')[0]
     let musicStatus = document.getElementsByClassName('musicStatus')[0]
-    let songIndexCounter = 0;
+    let songIndexCounter = 0
     let songPlayingName = playlistSource[songIndexCounter][0]
+    playerAudio.src = playlistSource[songIndexCounter][1]
     let playlistFile
 
+    playerAudio.addEventListener('ended', () => {
+        if (songIndexCounter < playlistSource.length-1) {
+            songIndexCounter = songIndexCounter+1
+        } else songIndexCounter = 0
+        musicStatus.innerHTML = `Playing`        
+        currentSong.innerHTML = playlistSource[songIndexCounter][0]        
+        playerAudio.src = playlistSource[songIndexCounter][1]
+        playerAudio.play()
+    })
 
-    const jukebox = { //audio controls
+    let jukebox = { //audio controls
         play: () => {
-            // debugger
-            // while (songIndexCounter < playlistSource.length) {
-                playerAudio.play()
-                // playerAudio.addEventListener('ended', (e) => {
-                //     if (songIndexCounter <= playlistSource.length) {
-                //         songIndexCounter + 1
-                //         // playerAudio.src = playlistSource[songIndexCounter][1]
-                //     }
-                // })
-                musicStatus.innerHTML = `Playing`
-            // }
+            musicStatus.innerHTML = `Playing`
+            playerAudio.play()
         },
         pause: () => {
             playerAudio.pause()
@@ -42,37 +43,30 @@ const renderPlaylistDisplay = () => { //shows the UI
             musicStatus.innerHTML = `Restarting Song`
         },
         previous: () => {
-            (songIndexCounter === 0) ? songIndexCounter = 4: songIndexCounter--
+            (songIndexCounter === 0) ? songIndexCounter = playlistSource.length - 1: songIndexCounter--
                 playerAudio.src = playlistSource[songIndexCounter][1]
-            songPlayingName = playlistSource[songIndexCounter][0]
+            currentSong.innerHTML = playlistSource[songIndexCounter][0]
             jukebox.play()
-            currentSong.innerHTML = songPlayingName
         },
         next: () => {
             (songIndexCounter === playlistSource.length - 1) ? songIndexCounter = 0: songIndexCounter++
                 playerAudio.src = playlistSource[songIndexCounter][1]
-            songPlayingName = playlistSource[songIndexCounter][0]
+            currentSong.innerHTML = playlistSource[songIndexCounter][0]
             jukebox.play()
-            currentSong.innerHTML = songPlayingName
-        },
-        shuffle: () => {
-
         }
-    }
-
-    let funcControl = (functionCommand) => {
-        currentSong.innerHTML = songPlayingName
-        jukebox[functionCommand]()
     }
 
     let clickSongSelection = (playlistIndex) => {
         jukebox.pause()
-        songIndexCounter = playlistIndex
-        songPlayingName = playlistSource[playlistIndex][0]
-        playlistFile = playlistSource[playlistIndex][1]
-        playerAudio.src = playlistFile
-        currentSong.innerHTML = songPlayingName
+        songIndexCounter = parseInt(playlistIndex)
+        currentSong.innerHTML = playlistSource[songIndexCounter][0]
+        playerAudio.src = playlistSource[songIndexCounter][1]
         jukebox.play()
+    }
+
+    let funcControl = (functionCommand) => {
+        currentSong.innerHTML = playlistSource[songIndexCounter][0]
+        jukebox[functionCommand]()
     }
 
     for (let i = 0; i < playlistSource.length; i++) { //displays playlist
@@ -82,10 +76,8 @@ const renderPlaylistDisplay = () => { //shows the UI
         musicList.appendChild(li)
         li.setAttribute('data-index', i)
     }
-
-    currentSong.innerHTML = `${songPlayingName}`
-    musicStatus.innerHTML = `play`
     jukebox.play()
+    currentSong.innerHTML = songPlayingName
 
     document.getElementById('musicTitles').onclick = (e) => clickSongSelection(e.target.getAttribute('data-index'))
     document.getElementById('playerControls').onclick = (e) => funcControl(e.target.getAttribute('data-function'))
